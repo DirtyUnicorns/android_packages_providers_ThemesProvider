@@ -291,7 +291,6 @@ public class ThemePackageHelper {
     public static boolean isPresentableTheme(Map<String, Boolean> implementMap) {
         return implementMap != null &&
                 hasThemeComponent(implementMap, ThemesColumns.MODIFIES_LAUNCHER) &&
-                hasThemeComponent(implementMap, ThemesColumns.MODIFIES_ICONS) &&
                 hasThemeComponent(implementMap, ThemesColumns.MODIFIES_OVERLAYS);
     }
 
