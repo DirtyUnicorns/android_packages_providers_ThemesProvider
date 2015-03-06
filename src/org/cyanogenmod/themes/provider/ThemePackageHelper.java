@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.res.ThemeConfig.SYSTEMUI_NAVBAR_PKG;
+import static android.content.res.ThemeConfig.SYSTEMUI_STATUS_BAR_PKG;
 import static android.content.res.ThemeConfig.SYSTEM_DEFAULT;
 
 /**
@@ -312,6 +313,9 @@ public class ThemePackageHelper {
         }
         if (pkgName.equals(themeConfig.getOverlayPkgName())) {
             reApply.add(ThemesColumns.MODIFIES_OVERLAYS);
+        }
+        if (pkgName.equals(themeConfig.getOverlayPkgNameForApp(SYSTEMUI_STATUS_BAR_PKG))) {
+            reApply.add(ThemesColumns.MODIFIES_STATUS_BAR);
         }
         if (pkgName.equals(themeConfig.getOverlayPkgNameForApp(SYSTEMUI_NAVBAR_PKG))) {
             reApply.add(ThemesColumns.MODIFIES_NAVIGATION_BAR);
