@@ -170,6 +170,7 @@ public class ThemePackageHelper {
                 ThemeUtils.getDefaultThemePackageName(context).equals(pi.packageName) ? 1 : 0);
         values.put(ThemesColumns.LAST_UPDATE_TIME, pi.lastUpdateTime);
         values.put(ThemesColumns.INSTALL_TIME, pi.firstInstallTime);
+        values.put(ThemesColumns.TARGET_API, pi.applicationInfo.targetSdkVersion);
         values.put(ThemesColumns.INSTALL_STATE,
                 isProcessing ? InstallState.UPDATING : InstallState.INSTALLED);
 
@@ -203,6 +204,7 @@ public class ThemePackageHelper {
         values.put(ThemesColumns.DATE_CREATED, System.currentTimeMillis());
         values.put(ThemesColumns.LAST_UPDATE_TIME, pi.lastUpdateTime);
         values.put(ThemesColumns.INSTALL_TIME, pi.firstInstallTime);
+        values.put(ThemesColumns.TARGET_API, pi.applicationInfo.targetSdkVersion);
         values.put(ThemesColumns.INSTALL_STATE,
                 isProcessing ? InstallState.UPDATING : InstallState.INSTALLED);
 
