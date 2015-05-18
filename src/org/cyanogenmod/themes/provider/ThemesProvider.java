@@ -234,10 +234,14 @@ public class ThemesProvider extends ContentProvider {
             queryBuilder.appendWhere(MixnMatchColumns.COL_KEY + "=" + uri.getLastPathSegment());
             break;
         case COMPONENTS_PREVIEWS:
-            // COMPONENT_PREVIEWS has the same query behavior as PREVIEWS, however, it requires a
-            // groupBy parameter to be defined before doing so. Let it fall through after this.
-            groupBy = PreviewColumns.THEME_ID;
+            groupBy = PreviewColumns.THEME_ID + "," + PreviewColumns.COMPONENT_ID;
+            queryBuilder.setTables(THEMES_PREVIEWS_INNER_JOIN);
+            break;
         case PREVIEWS:
+            projection = ProviderUtils.modifyPreviewsProjection(projection);
+            selection = ProviderUtils.modifyPreviewsSelection(selection, projection);
+            selectionArgs = ProviderUtils.modifyPreviewsSelectionArgs(selectionArgs, projection);
+            groupBy = PreviewColumns.THEME_ID + "," + PreviewColumns.COMPONENT_ID;
             queryBuilder.setTables(THEMES_PREVIEWS_INNER_JOIN);
             break;
         case PREVIEWS_ID:
@@ -363,7 +367,7 @@ public class ThemesProvider extends ContentProvider {
                                 delimeter = ",";
                             }
                         } else if (ThemesColumns.MODIFIES_LAUNCHER.equals(component)) {
-                            String previewKey = PreviewColumns.KEY_WALLPAPER_PREVIEW;
+                            String previewKey = PreviewColumns.WALLPAPER_PREVIEW;
                             sb.append(delimeter).append(String.format(
                                     "(SELECT %s AS %s FROM previews WHERE %s=%d AND %s='%s')",
                                     PreviewColumns.COL_VALUE, previewKey, PreviewColumns.THEME_ID,
@@ -379,7 +383,7 @@ public class ThemesProvider extends ContentProvider {
                                 delimeter = ",";
                             }
                         } else if (ThemesColumns.MODIFIES_OVERLAYS.equals(component)) {
-                            String previewKey = PreviewColumns.KEY_STYLE_PREVIEW;
+                            String previewKey = PreviewColumns.STYLE_PREVIEW;
                             sb.append(delimeter).append(String.format(
                                     "(SELECT %s AS %s FROM previews WHERE %s=%d AND %s='%s')",
                                     PreviewColumns.COL_VALUE, previewKey, PreviewColumns.THEME_ID,
